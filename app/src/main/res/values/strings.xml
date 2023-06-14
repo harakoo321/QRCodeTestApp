@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">QRCodeTestApp</string>
+    <string name="QRCode_read">QRコード読み取り</string>
+    <string name="QRCode_create">QRコード生成</string>
+    <string name="compress">圧縮</string>
+    <string name="decompress">解凍</string>
+</resources>
