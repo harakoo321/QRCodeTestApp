@@ -7,14 +7,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
-import org.opencv.core.Mat;
 
 public class MainActivity extends AppCompatActivity {
+    private Data data;
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        data = (Data)getApplication();
         Button qrReadButton = findViewById(R.id.qrReadButton);
         Button qrCreateButton = findViewById(R.id.qrCreateButton);
         Button compressButton = findViewById(R.id.compressButton);
@@ -47,7 +49,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected  void onResume(){
+    protected void onRestart(){
+        super.onRestart();
+        ImageView imageView = findViewById(R.id.imageView);
+        imageView.setImageBitmap(data.getBitmap());
+    }
+
+    @Override
+    protected void onResume(){
         super.onResume();
         if (!OpenCVLoader.initDebug()){
             Log.d("OpenCV", "Internal OpenCV library not found. Using OpenCV Manager for initialization");
@@ -61,11 +70,8 @@ public class MainActivity extends AppCompatActivity {
     private class QRReadButtonClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view){
-            QRCodeHandler qrCodeHandler = new QRCodeHandler();
             TextView output = findViewById(R.id.textView);
             output.setText("QRCodeRead!");
-            qrCodeHandler.getMat();
-            qrCodeHandler.dispose();
             startActivity(new Intent(MainActivity.this, QRReaderActivity.class));
         }
     }

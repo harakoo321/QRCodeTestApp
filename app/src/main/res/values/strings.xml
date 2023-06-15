@@ -4,4 +4,5 @@
     <string name="QRCode_create">QRコード生成</string>
     <string name="compress">圧縮</string>
     <string name="decompress">解凍</string>
+    <string name="shot_button">撮影</string>
 </resources>
